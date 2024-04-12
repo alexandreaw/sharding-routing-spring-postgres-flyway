@@ -1,0 +1,14 @@
+spring:
+  sharding:
+    datasource:
+      ds-a:
+        jdbcUrl: ${datasource.a.url}
+        username: ${datasource.a.username}
+        password: ${datasource.a.password}
+      ds-b:
+        jdbcUrl: ${datasource.b.url}
+        username: ${datasource.b.username}
+        password: ${datasource.b.password}
+    route:
+      ds-a: A-N0-4
+      ds-b: O-Z5-9

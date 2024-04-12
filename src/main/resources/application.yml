@@ -1,0 +1,10 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.jdbc.JdbcRepositoriesAutoConfiguration
+  config:
+    import:
+      - classpath:sharding-config.yml
+      - optional:file:./settings.properties
+  flyway:
+    enabled: false
