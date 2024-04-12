@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  postgres_1:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=sharding
+      - POSTGRES_PASSWORD=sharding
+      - POSTGRES_DB=sharding
+      - PGDATA=/var/lib/postgres/data
+    ports:
+      - "5462:5432"
+
+  postgres_2:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=sharding
+      - POSTGRES_PASSWORD=sharding
+      - POSTGRES_DB=sharding
+      - PGDATA=/var/lib/postgres/data
+    ports:
+      - "5472:5432"
+
+volumes:
+  postgres_data:
