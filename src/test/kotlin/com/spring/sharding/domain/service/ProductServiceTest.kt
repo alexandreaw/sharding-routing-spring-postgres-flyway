@@ -1,4 +1,4 @@
-package com.sharding.domain.service
+package com.spring.sharding.domain.service
 
 import com.spring.sharding.domain.entity.Product
 import com.spring.sharding.domain.gateway.ProductGateway

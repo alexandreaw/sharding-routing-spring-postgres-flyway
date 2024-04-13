@@ -1,112 +1,85 @@
 package com.spring.sharding.resouces.gateway
 
+import com.spring.sharding.domain.entity.Product
+import com.spring.sharding.resouces.gateway.ProductGatewayImpl
+import com.spring.sharding.application.config.ShardingSelector
+import com.spring.sharding.resouces.repository.ProductRepository
 import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.util.*
 
-internal class ProductGatewayImplTest {
-    private val `var`: lateinit? = null
-    private val productRepository: `val`? = null
-    fun mockk()
-    private val shardingSelector: `val`? = null
-    fun mockk()
+class ProductGatewayImplTest {
+
+    private lateinit var productGatewayImpl: ProductGatewayImpl
+    private val productRepository: ProductRepository = mockk()
+    private val shardingSelector: ShardingSelector = mockk()
 
     @BeforeEach
-    fun setup(): `fun` {
+    fun setup() {
         productGatewayImpl = ProductGatewayImpl(productRepository, shardingSelector)
     }
 
-    var returns: findById? = null
-    var `when`: product? = null
-    var exists: product? = null
+    @Test
+    fun `findById returns product when product exists`() {
+        val product = Product(price = 10.0, name = "TV")
+        val id = UUID.randomUUID().toString()
+        every { shardingSelector.selectSharding(id, any()) } returns product
 
-    init {
-        val product: `val` = Product(10.0.also { price = it }, "TV".also { name = it })
-        val id: `val` = UUID.randomUUID().toString()
-        every
-        run { shardingSelector.selectSharding(id, any()) }
-        var product: returns
-
-        val result: `val` = productGatewayImpl.findById(id)
+        val result = productGatewayImpl.findById(id)
 
         assertEquals(product, result)
     }
 
-    var returns: findById? = null
-    var product: `when`? = null
-    var not: does? = null
+    @Test
+    fun `findById returns null when product does not exist`() {
+        val id = UUID.randomUUID().toString()
+        every { shardingSelector.selectSharding(id, any()) } returns null
 
-    init {
-        val id: `val` = UUID.randomUUID().toString()
-        every
-        run { shardingSelector.selectSharding(id, any()) }
-        returns
-        null
-
-        val result: `val` = productGatewayImpl.findById(id)
+        val result = productGatewayImpl.findById(id)
 
         assertNull(result)
     }
 
-    var returns: save? = null
-    var product: `when`? = null
-    var saved: `is`? = null
+    @Test
+    fun `save returns true when product is saved successfully`() {
+        val product = Product(price = 10.0, name = "TV")
+        every { shardingSelector.selectSharding(product.id, any()) } returns true
 
-    init {
-        val product: `val` = Product(10.0.also { price = it }, "TV".also { name = it })
-        every
-        run { shardingSelector.selectSharding(product.id, any()) }
-        returns
-        true
-
-        val result: `val` = productGatewayImpl.save(product)
+        val result = productGatewayImpl.save(product)
 
         assertTrue(result)
     }
 
-    var returns: save? = null
-    var product: `when`? = null
-    var fails: save? = null
+    @Test
+    fun `save returns false when product save fails`() {
+        val product = Product(price = 10.0, name = "TV")
+        every { shardingSelector.selectSharding(product.id, any()) } returns false
 
-    init {
-        val product: `val` = Product(10.0.also { price = it }, "TV".also { name = it })
-        every
-        run { shardingSelector.selectSharding(product.id, any()) }
-        returns
-        false
-
-        val result: `val` = productGatewayImpl.save(product)
+        val result = productGatewayImpl.save(product)
 
         assertFalse(result)
     }
 
-    var returns: deleteById? = null
-    var product: `when`? = null
-    var deleted: `is`? = null
+    @Test
+    fun `deleteById returns true when product is deleted successfully`() {
+        val id = UUID.randomUUID().toString()
+        every { shardingSelector.selectSharding(id, any()) } returns true
 
-    init {
-        val id: `val` = UUID.randomUUID().toString()
-        every
-        run { shardingSelector.selectSharding(id, any()) }
-        returns
-        true
-
-        val result: `val` = productGatewayImpl.deleteById(id)
+        val result = productGatewayImpl.deleteById(id)
 
         assertTrue(result)
     }
 
-    var returns: deleteById? = null
-    var product: `when`? = null
-    var fails: deletion? = null
+    @Test
+    fun `deleteById returns false when product deletion fails`() {
+        val id = UUID.randomUUID().toString()
+        every { shardingSelector.selectSharding(id, any()) } returns false
 
-    init {
-        val id: `val` = UUID.randomUUID().toString()
-        every
-        run { shardingSelector.selectSharding(id, any()) }
-        returns
-        false
-
-        val result: `val` = productGatewayImpl.deleteById(id)
+        val result = productGatewayImpl.deleteById(id)
 
         assertFalse(result)
     }
