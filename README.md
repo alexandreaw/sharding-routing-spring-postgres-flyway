@@ -16,3 +16,7 @@ The following stack is used in this project:
 * **PostgreSQL**: A powerful, open-source relational database management system known for its reliability, robustness, and extensibility.
 * **Spring Framework**: An open-source framework for building Java applications, known for its dependency injection, declarative programming, and comprehensive support for enterprise features.
 * **Flyway**: A database migration tool that simplifies versioning and managing changes to database schemas, making it easier to keep database structures in sync with application code.
+
+## Understanding Better with a Example
+.... Example detail
+* ![Sharding_1](https://github.com/alexandreaw/sharding-routing-spring-postgres-flyway/assets/793210/995b243d-eedc-4a75-85fd-6b47e51497e0)
