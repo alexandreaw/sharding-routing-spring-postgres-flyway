@@ -18,6 +18,8 @@ The following stack is used in this project:
 * **Flyway**: A database migration tool that simplifies versioning and managing changes to database schemas, making it easier to keep database structures in sync with application code.
 
 ## Understanding Better with a Example
-Scenario 1: In this scenario, when you register a product using a RESTful service, you receive an ID that ends with "e". This means that according to the routing setup "pg-a: A-N0-4", which includes all IDs ending from "A" to "N" and from "0" to "4", the product will be directed to the PG-A database.
+The image below covers the following scenarios:
+- Scenario 1: In this scenario, when you register a product using a RESTful service, you receive an ID that ends with "e". This means that according to the routing setup "pg-a: A-N0-4", which includes all IDs ending from "A" to "N" and from "0" to "4", the product will be directed to the PG-A database.
+- Scenario 2: In this scenario, when you register a product using a RESTful service, you receive an ID that ends with "8". This means that according to the routing setup "pg-b: O-Z5-9", which includes all IDs ending from "O" to "Z" and from "5" to "9", the product will be directed to the PG-B database.
 
 * ![Sharding_1](https://github.com/alexandreaw/sharding-routing-spring-postgres-flyway/assets/793210/995b243d-eedc-4a75-85fd-6b47e51497e0)
