@@ -38,6 +38,7 @@ class ProductController(
 }
 
 fun ProductDto.toDomain() = Product(
+    id = id,
     name = name,
     price = price
 )

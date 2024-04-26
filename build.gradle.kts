@@ -41,6 +41,24 @@ openApiGenerate {
 	)
 }
 sourceSets { getByName("main") { java { srcDir("$buildDir/generated/openapi/src/main/java") } } }
+sourceSets {
+	create("integrationTest") {
+		compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+		runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+	}
+}
+val integrationTestTask = tasks.create("integrationTest", Test::class.java) {
+	description = "Run integration tests."
+	group = "verification"
+
+	testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+	classpath = sourceSets["integrationTest"].runtimeClasspath
+}
+val integrationTestImplementation: Configuration by configurations.getting {
+	extendsFrom(configurations.implementation.get())
+	extendsFrom(configurations.testImplementation.get())
+}
+configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
 dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -68,6 +86,12 @@ dependencies {
 	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.12.0")
+
+	// DB Test
+	testImplementation(enforcedPlatform("org.testcontainers:testcontainers-bom:1.18.0"))
+	testImplementation("org.testcontainers:testcontainers")
+	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:postgresql")
 }
 
 tasks.withType<KotlinCompile> {

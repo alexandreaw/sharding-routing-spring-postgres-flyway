@@ -1,0 +1,14 @@
+spring:
+  sharding:
+    datasource:
+      pg-a:
+        jdbcUrl: jdbc:postgresql://localhost:6432/sharding
+        username: sharding
+        password: sharding
+      pg-b:
+        jdbcUrl: jdbc:postgresql://localhost:6433/sharding
+        username: sharding
+        password: sharding
+    route:
+      pg-a: A-N0-4
+      pg-b: O-Z5-9

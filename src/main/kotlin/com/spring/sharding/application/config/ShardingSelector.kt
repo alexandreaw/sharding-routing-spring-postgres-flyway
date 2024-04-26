@@ -18,4 +18,12 @@ class ShardingSelector(
         } finally {
             CurrentSharding.clearDataSourceKey()
         }
+
+    fun <T>overrideSharding(dataSource: String,  callback: ()-> T): T =
+        try {
+            CurrentSharding.setDataSourceKey(dataSource)
+            callback()
+        } finally {
+            CurrentSharding.clearDataSourceKey()
+        }
 }
