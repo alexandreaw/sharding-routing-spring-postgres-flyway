@@ -1,14 +1,14 @@
 spring:
   sharding:
     datasource:
-      ds-a:
+      pg-a:
         jdbcUrl: ${datasource.a.url}
         username: ${datasource.a.username}
         password: ${datasource.a.password}
-      ds-b:
+      pg-b:
         jdbcUrl: ${datasource.b.url}
         username: ${datasource.b.username}
         password: ${datasource.b.password}
     route:
-      ds-a: A-N0-4
-      ds-b: O-Z5-9
+      pg-a: A-N0-4
+      pg-b: O-Z5-9
